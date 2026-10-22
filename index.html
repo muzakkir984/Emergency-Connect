@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101b2d">
+  <title>Emergency Connect | Your Safety Network</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <a class="brand" href="#" onclick="showPage('home'); return false;">
+      <span class="brand-icon">✳</span>
+      <span>emergency<span class="brand-light">connect</span>
+      <small>YOUR PERSONAL SAFETY NETWORK</small></span>
+    </a>
+
+    <p class="nav-label">YOUR SPACE</p>
+    <button class="nav-item active" data-page="home" onclick="showPage('home')">⌂ <span>Overview</span></button>
+    <button class="nav-item" data-page="assist" onclick="showPage('assist')">◎ <span>Emergency assist</span></button>
+    <button class="nav-item" data-page="circle" onclick="showPage('circle')">♧ <span>Trusted circle</span></button>
+    <button class="nav-item" data-page="activity" onclick="showPage('activity')">↗ <span>Incident history</span></button>
+    <button class="nav-item" data-page="toolkit" onclick="showPage('toolkit')">✧ <span>Safety toolkit</span></button>
+    <button class="nav-item" data-page="settings" onclick="showPage('settings')">⚙ <span>Preferences</span></button>
+
+    <div class="sidebar-bottom">
+      <div class="privacy-note">✦ <strong>Your safety, your control.</strong><p>Your location is only requested when you choose to share it.</p></div>
+      <div class="profile"><div class="avatar">EC</div><div><strong>Safety profile</strong><small>Personal account</small></div></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand">✳ Emergency Connect</div>
+      <span class="secure-label"><span class="green-dot"></span> PERSONAL SAFETY SPACE</span>
+      <button class="outline-button" onclick="showPage('circle')">♧ &nbsp; Trusted contacts</button>
+    </header>
+
+    <section class="page active" id="home">
+      <div class="senior-prompt" id="seniorPrompt">
+        <div class="senior-prompt-copy">
+          <p class="eyebrow">QUICK HELP OPTION</p>
+          <h2 id="seniorPromptTitle">Senior quick-call option</h2>
+          <p id="seniorPromptDescription">Turn on simple calling so the large SOS button calls your chosen emergency contact.</p>
+        </div>
+        <div class="senior-prompt-actions">
+          <button class="senior-enable-button" id="seniorEnableButton" type="button" onclick="enableSeniorQuickCall()">Yes — enable one-tap calling</button>
+          <button class="senior-call-button" id="seniorCallButton" type="button" onclick="callEmergencyContact()" hidden>Call emergency contact now</button>
+          <button class="senior-dismiss-button" id="seniorDismissButton" type="button" onclick="dismissSeniorPrompt()">Not now</button>
+        </div>
+      </div>
+      <div class="welcome">
+        <div><p class="eyebrow">MONDAY, YOUR SAFETY FIRST</p><h1>Be ready.<br><span>Stay connected.</span></h1>
+        <p class="subtext">A calmer way to prepare for the unexpected. Your people, your location, your next step — in one place.</p></div>
+        <div class="welcome-symbol">✳</div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="map-card">
+          <div class="map-top"><span>◉ &nbsp; YOUR LOCATION</span><span id="locationBadge">NOT SHARED</span></div>
+          <div class="map-art">
+            <div class="road road-a"></div><div class="road road-b"></div><div class="road road-c"></div>
+            <div class="park">GREEN<br>SPACE</div><div class="map-pin">●</div>
+            <div class="map-label">YOUR POSITION</div>
+            <div class="map-caption">Location is private until you choose to share it.</div>
+          </div>
+          <div class="map-bottom"><span id="locationText">Location permission not requested</span><button onclick="getMyLocation()">Share location ↗</button></div>
+        </div>
+
+        <div class="sos-card">
+          <span class="sos-kicker">NEED HELP RIGHT NOW</span>
+          <div class="sos-orbit"><div class="sos-core">SOS<small>GET HELP</small></div></div>
+          <h2>One step at a time.</h2>
+          <p id="homeSOSDescription">Start an emergency flow to contact someone you trust.</p>
+          <button class="sos-button" id="homeSOSButton" type="button" onclick="handleSOSAction()"><span id="homeSOSLabel">SOS — Alert all contacts</span><span aria-hidden="true">↗</span></button>
+          <small class="disclaimer">Demo interface · Does not contact emergency services automatically</small>
+        </div>
+      </div>
+
+      <div class="section-heading"><div><p class="eyebrow">YOUR SAFETY NETWORK</p><h2>Ready when you need it.</h2></div><span class="muted">Quick access</span></div>
+      <div class="quick-grid">
+        <button class="quick-card" onclick="showPage('assist')"><span class="quick-icon red">◎</span><strong>Get assistance</strong><p>Choose what kind of help you need.</p><span class="card-arrow">↗</span></button>
+        <button class="quick-card" onclick="showPage('circle')"><span class="quick-icon teal">♧</span><strong>Your trusted circle</strong><p>Manage the people you can reach.</p><span class="card-arrow">↗</span></button>
+        <button class="quick-card" onclick="showPage('toolkit')"><span class="quick-icon purple">✧</span><strong>Safety toolkit</strong><p>Practical guidance for different situations.</p><span class="card-arrow">↗</span></button>
+      </div>
+      <div class="bottom-note">✦ &nbsp; <strong>Remember:</strong> If you are in immediate danger, contact your local emergency service as soon as you safely can.</div>
+    </section>
+
+    <section class="page" id="assist">
+      <p class="eyebrow">EMERGENCY ASSISTANCE / 01</p><h1>Choose the <span>help you need</span></h1>
+      <p class="subtext">Choose the closest option. We'll show you relevant next steps.</p>
+      <div class="choice-grid">
+        <button class="choice" type="button" onclick="chooseEmergency('Medical emergency','Seek immediate medical help. Follow instructions from a qualified emergency dispatcher.', this)"><span>＋</span><strong>Medical emergency</strong><p>Injury or urgent health concern</p></button>
+        <button class="choice" type="button" onclick="chooseEmergency('Personal safety','Move towards a safer public place if possible. Contact local emergency services if you are in immediate danger.', this)"><span>⬡</span><strong>Personal safety</strong><p>Feeling threatened or unsafe</p></button>
+        <button class="choice" type="button" onclick="chooseEmergency('Fire or hazard','Move away from smoke, fire, or the hazard if safe. Contact local emergency services.', this)"><span>♨</span><strong>Fire or hazard</strong><p>Fire, smoke, or another danger</p></button>
+        <button class="choice" type="button" onclick="chooseEmergency('Other emergency','Describe what is happening and contact the appropriate local emergency service if needed.', this)"><span>⋯</span><strong>Something else</strong><p>Another urgent situation</p></button>
+      </div>
+      <div class="result-panel" id="emergencyResult"><p class="eyebrow">YOUR NEXT STEP</p><h2 id="resultTitle">Select an emergency type</h2><p id="resultDescription">Relevant guidance will appear here.</p><button class="primary-button" onclick="showPage('circle')">View trusted contacts ↗</button></div>
+    </section>
+
+    <section class="page" id="circle">
+      <p class="eyebrow">YOUR PEOPLE / 02</p><h1>Your <span>trusted circle.</span></h1>
+      <p class="subtext">Keep the people you may want to reach in one convenient place.</p>
+      <div class="split-layout">
+        <div class="panel"><h2>Add a trusted contact</h2><p class="muted">Contact details are stored in this browser on this device.</p>
+          <form id="contactForm"><label for="contactName">Contact name</label><input id="contactName" required placeholder="e.g. Parent or guardian"><label for="contactPhone">Phone number</label><input id="contactPhone" required type="tel" placeholder="Include country code if needed"><button class="primary-button" type="submit">+ Add contact</button></form>
+        </div>
+        <div class="panel"><h2>Your contacts</h2><p class="muted">Set one person as your emergency contact. When you press SOS, you can send them your emergency message and location.</p><div id="contactsList"><p class="empty-state">No contacts added yet. Add someone you trust.</p></div></div>
+      </div>
+      <div class="notice">🔒 &nbsp; This demo stores contact details in your browser only. Avoid using real sensitive information in a public demonstration.</div>
+    </section>
+
+    <section class="page" id="activity">
+      <p class="eyebrow">YOUR RECORD / 03</p><h1>Incident <span>history.</span></h1>
+      <p class="subtext">Review emergency flows you started in this browser.</p>
+      <div class="panel"><div class="panel-heading"><h2>Recent activity</h2><button class="outline-button" onclick="clearHistory()">Clear history</button></div><div id="historyList"><p class="empty-state">No activity recorded yet.</p></div></div>
+    </section>
+
+    <section class="page" id="toolkit">
+      <p class="eyebrow">BE PREPARED / 04</p><h1>Your safety <span>toolkit.</span></h1>
+      <p class="subtext">Simple reminders to help you think clearly and prepare ahead.</p>
+      <div class="toolkit-grid">
+        <article class="tool-card"><span>01 / PREPARE</span><h2>Know your essentials</h2><p>Keep important contact numbers and relevant medical information somewhere you can access safely.</p></article>
+        <article class="tool-card"><span>02 / CONNECT</span><h2>Choose your people</h2><p>Agree in advance with trusted people about how you will contact each other during an emergency.</p></article>
+        <article class="tool-card"><span>03 / RESPOND</span><h2>Prioritise safety</h2><p>When danger is immediate, move to safety if possible and contact the appropriate local emergency service.</p></article>
+        <article class="tool-card"><span>04 / REVIEW</span><h2>Check your plan</h2><p>Review your emergency contacts and make sure the details you rely on are up to date.</p></article>
+      </div>
+    </section>
+
+    <section class="page" id="settings">
+      <p class="eyebrow">MAKE IT YOURS / 05</p><h1>Your <span>preferences.</span></h1>
+      <p class="subtext">Adjust how the interface works for you.</p>
+      <div class="panel setting-row"><div><strong>Larger text</strong><p>Make interface text easier to read.</p></div><input type="checkbox" id="largeText"></div>
+      <div class="panel setting-row"><div><strong>Reduced motion</strong><p>Reduce decorative transitions.</p></div><input type="checkbox" id="reduceMotion"></div>
+      <div class="panel setting-row senior-setting"><div><strong id="seniorQuickCallLabel">Senior one-tap call</strong><p id="seniorQuickCallDescription">Show a large call button on Home for your designated emergency contact. The SOS button continues to open emergency options.</p></div><input type="checkbox" id="seniorQuickCall" aria-labelledby="seniorQuickCallLabel" aria-describedby="seniorQuickCallDescription"></div>
+      <div class="notice">Location access is requested only when you choose the location feature. You can manage browser permissions in your browser settings.</div>
+    </section>
+
+    <footer>EMERGENCY CONNECT <span>Designed for clarity when it matters.</span></footer>
+  </main>
+
+  <div class="overlay" id="sosOverlay" hidden>
+    <div class="sos-dialog" role="dialog" aria-modal="true" aria-labelledby="sosTitle">
+      <button class="close-button" onclick="closeSOS()" aria-label="Close">×</button>
+      <span class="eyebrow">EMERGENCY ASSISTANCE</span>
+      <div class="dialog-icon" aria-hidden="true">!</div>
+      <h2 id="sosTitle">Emergency help is available</h2>
+      <p class="sos-intro">Press the button to prepare an emergency WhatsApp alert for each saved contact, one at a time. You must press Send in WhatsApp for each person.</p>
+      <div class="sos-primary-contact">
+        <span class="sos-contact-icon" aria-hidden="true">♧</span>
+        <div>
+          <strong>Designated emergency contact</strong>
+          <p id="sosPrimaryContact">No emergency contact selected.</p>
+        </div>
+      </div>
+      <p class="sos-empty" id="sosEmptyContacts" hidden>Add contacts in your trusted circle before using SOS.</p>
+      <p class="sos-alert-status" id="sosAlertStatus" aria-live="polite"></p>
+      <div class="sos-location" aria-live="polite">
+        <span class="sos-location-icon" aria-hidden="true">⌖</span>
+        <div>
+          <strong>Your location</strong>
+          <p id="sosLocationStatus">Requesting your current location…</p>
+        </div>
+        <button class="sos-retry" id="sosRetryButton" type="button" onclick="retrySOSLocation()" hidden>Get my location</button>
+      </div>
+      <button class="primary-button full sos-send" id="sosShareButton" type="button" onclick="shareEmergencyOnWhatsApp()" disabled>Alert all contacts</button>
+      <div class="sos-actions">
+        <button class="outline-button full sos-call" id="sosCallButton" type="button" onclick="callEmergencyContact()" disabled>Call emergency contact</button>
+      </div>
+      <p class="sos-disclaimer">This browser cannot send messages automatically. Each WhatsApp alert opens separately; press Send, return here, then prepare the next alert.</p>
+      <button class="text-button sos-add-contact" type="button" onclick="closeSOS();showPage('circle')">Manage trusted contacts</button>
+      <button class="text-button" onclick="closeSOS()">Cancel</button>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
